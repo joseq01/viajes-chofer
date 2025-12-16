@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chofer - Seguimiento</title>
+
+<script type="module" src="js/chofer.js"></script>
+
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #1e1f29, #3a3b4f);
+  font-family: 'Segoe UI', sans-serif;
+  color: #fff;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  background: rgba(255,255,255,0.1);
+  padding: 40px;
+  width: 90%;
+  max-width: 380px;
+  border-radius: 18px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  backdrop-filter: blur(8px);
+  text-align: center;
+}
+
+.logo {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  background: linear-gradient(90deg,#4da3ff,#88f7ff);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: none;
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  font-size: 18px;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  background: #4da3ff;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 18px;
+  margin-top: 15px;
+}
+
+button:hover {
+  background: #6bb8ff;
+}
+
+#msg {
+  margin-top: 15px;
+  font-size: 16px;
+  color: #ffbbbb;
+}
+
+.footer {
+  margin-top: 20px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.8);
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <div class="logo">CHOFER</div>
+  <p>Ingresá tu PIN para comenzar</p>
+
+  <input id="pin" type="password" placeholder="PIN de acceso">
+  <button id="loginBtn">Ingresar</button>
+
+  <div id="msg"></div>
+
+  <div class="footer">
+    Desarrollador: <b>Jose Quin</b>
+  </div>
+</div>
+
+</body>
+</html>
