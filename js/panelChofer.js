@@ -186,13 +186,63 @@ window.iniciarViaje = async (id) => {
 window.aceptarViaje = async (id) => {
   const ref = doc(db, "seguimiento", id);
 
+  // marcar como aceptado (igual que ahora)
   await updateDoc(ref, {
     aceptado: true,
     estado: "en camino",
     horaAceptado: new Date().toISOString()
   });
 
-  estado.innerHTML = "✔️ Viaje aceptado. Podés iniciarlo.";
+  estado.innerHTML = "📡 Iniciando GPS...";
+
+  // limpiar intervalos previos por seguridad
+  if (trackingInterval) clearInterval(trackingInterval);
+
+  // primer envío inmediato
+  navigator.geolocation.getCurrentPosition(
+    async (pos) => {
+      const punto = {
+        lat: pos.coords.latitude,
+        lng: pos.coords.longitude,
+        hora: new Date().toISOString()
+      };
+
+      historialGPS = [punto];
+
+      await updateDoc(ref, {
+        ultimaPos: punto
+      });
+
+      estado.innerHTML = `✔️ GPS activo<br>
+        Lat: ${punto.lat}<br>
+        Lng: ${punto.lng}`;
+    },
+    () => {
+      estado.innerHTML = "⚠️ No se pudo obtener ubicación";
+    },
+    { enableHighAccuracy: true }
+  );
+
+  // envíos periódicos (cada 5 min)
+  trackingInterval = setInterval(() => {
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        const punto = {
+          lat: pos.coords.latitude,
+          lng: pos.coords.longitude,
+          hora: new Date().toISOString()
+        };
+
+        historialGPS.push(punto);
+
+        await updateDoc(ref, {
+          ultimaPos: punto
+        });
+      },
+      () => {},
+      { enableHighAccuracy: true }
+    );
+  }, 300000); // 5 minutos
 };
 
 
