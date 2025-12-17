@@ -34,7 +34,7 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
   }
 
   // Buscar el PIN dentro de la colección usuarios
-  const q = query(collection(db, "usuarios"), where("pin", "==", pinIngresado));
+  const q = query(collection(db, "chofer"), where("pin", "==", pinIngresado));
   const snap = await getDocs(q);
 
   if (snap.empty) {
